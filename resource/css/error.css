@@ -1,0 +1,27 @@
+.error{
+  position: relative !important;
+   top: 0;
+ font-size: 15px;
+ color: red;
+ transition: 0.1s;
+}
+
+.error.active{
+  font-size: 1rem !important;
+-webkit-transform: none !important;
+-ms-transform: none !important;
+transform: none !important;
+}
+
+.was-error .focus-border{
+  background-color: #e21414 !important;
+}
+
+.was-error label{
+  color: #e21414 !important;
+}
+
+
+.was-error .md-form input[type=date]:focus:not([readonly]),.was-error .md-form input[type=datetime-local]:focus:not([readonly]), .was-error .md-form input[type=email]:focus:not([readonly]), .was-error .md-form input[type=number]:focus:not([readonly]), .was-error .md-form input[type=password]:focus:not([readonly]), .was-error .md-form input[type=search-md]:focus:not([readonly]), .was-error .md-form input[type=search]:focus:not([readonly]), .was-error .md-form input[type=tel]:focus:not([readonly]), .was-error .md-form input[type=text]:focus:not([readonly]), .was-error .md-form input[type=time]:focus:not([readonly]), .was-error .md-form input[type=url]:focus:not([readonly]), .was-error .md-form textarea.md-textarea:focus:not([readonly]){
+    border-bottom: 1px solid #e21414 !important;
+}
