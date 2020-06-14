@@ -1,7 +1,7 @@
 <?php
 
 // Motrar todos los errores de PHP
-ini_set('error_reporting', E_ALL);
+ini_set('error_reporting', 0);
 require_once("Models/Conectar.php");
 
 if(strpos(strtolower($_SERVER["REQUEST_URI"]),'/index.php') !== false ){
@@ -30,7 +30,7 @@ if(count($url)>1){
   $metodo='Index';
 }
 
-require_once("Controller/$controller.php");
+require_once("./Controller/$controller.php");
 
 $controllerObj = new $controller();
 $controllerObj->$metodo();

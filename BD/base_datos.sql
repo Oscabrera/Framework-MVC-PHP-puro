@@ -1,5 +1,5 @@
 
-create database examenabril
+create database examenabril;
 use examenabril;
 
 

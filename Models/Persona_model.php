@@ -5,7 +5,7 @@ class Persona_model{
     private $table='Persona';
 
     public function __construct(){
-        $this->db=Conectar::conexion();
+        $this->db=Conectar::getConexion();
         $this->Personas=array();
     }
 

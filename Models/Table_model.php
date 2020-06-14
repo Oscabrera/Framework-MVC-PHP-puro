@@ -5,7 +5,7 @@ class Table_model {
   var $table;
   var $where=null;
   function __construct() {
-    $this->db=Conectar::conexion();
+    $this->db=Conectar::getConexion();
   }
 
   function set_columns($columns){

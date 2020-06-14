@@ -4,10 +4,13 @@ class Inicio_Controller{
   }
 
   public function Index(){
+   
     require_once("Models/Persona_model.php");
+    
+   
     $persona=new Persona_model();
 
-
+   
     if($_POST['btnEliminar']=='1'){
       if($persona->Eliminar($_POST['id'])){
         require_once("Views/Respuesta_Ok.php");
@@ -23,7 +26,7 @@ class Inicio_Controller{
       }
     }
 
-
+    
     $cue='Persona';
     $cond=' Estado = 1';
 
