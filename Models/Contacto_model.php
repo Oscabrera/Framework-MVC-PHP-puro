@@ -1,54 +1,36 @@
 <?php
 
-class Persona_model
+class Contacto_model
 {
     private $db;
-    private $Personas;
-    private $table = 'Persona';
+    private $Contacto;
+    private $table = 'Contacto';
 
     public function __construct()
     {
         $this->db = Conectar::getConexion();
-        $this->Personas = array();
+        $this->Contacto = array();
     }
 
-    public function get_Persona($id)
+    public function get_Contacto($id)
     {
         $consulta = $this->db->query("SELECT * FROM $this->table WHERE Id_Persona= '$id' ;");
         //recoremos y regresamos el resultado
         while ($filas = $consulta->fetch_assoc()) {
-            $this->Personas[] = $filas;
+            $this->Contacto[] = $filas;
         }
-        if (count($this->Personas > 0)) {
-            return $this->Personas[0];
+        if (count($this->Contacto > 0)) {
+            return $this->Contacto[0];
         } else {
             return array();
         }
     }
 
-    public function get_Persona_curp($curp, $idpersona)
-    {
-        $sql = " SELECT * FROM $this->table WHERE CURP= '$curp' ";
-        if ($idpersona != null) {
-            $sql .= " AND Id_Persona !=" . $idpersona;
-        }
-        $consulta = $this->db->query($sql);
-        //recoremos y regresamos el resultado
-        while ($filas = $consulta->fetch_assoc()) {
-            $this->Personas[] = $filas;
-        }
-        if (count($this->Personas > 0)) {
-            return $this->Personas[0];
-        } else {
-            return false;
-        }
-    }
-
-    public function insertar($input)
+    public function insertar($input,$id_persona)
     {
         try {
-            $datos = ['rfc', 'curp', 'nombre', 'nombre2', 'ape_pat', 'ape_mat', 'fecha_nac', 'sexo', 'civil'];
-            $bddatos = ['RFC', 'CURP', 'Primer_Nombre', 'Segundo_Nombre', 'Apellido_Paterno', 'Apellido_Materno', 'Fecha_Nacimiento', 'Sexo', 'Estado_Civil'];
+            $datos = ['correo', 'tel', 'cel'];
+            $bddatos = ['Correo_Personal', 'Telefono_Fijo', 'Telefono_Celular'];
             $valores = ' ( ';
             $data = ' ( ';
             $keys = array_keys($input);
@@ -59,14 +41,15 @@ class Persona_model
                 if ($encontrado >= 0 && $encontrado !== false) {
                     //debe estar en el mismo orden los nombres y bdnombres, los bdnombres son el nombre de las columnas
                     $valores .= $bddatos[$key] . ', ';
-
                     $valor = $input[$datos[$key]];
-                    if(in_array($value,array('rfc', 'curp')))
-                        $valor = strtoupper($valor);
 
                     $data .= '\'' . htmlentities($valor) . '\' , ';
                 }
             }
+            $valores .=  'Id_Persona , ';
+            $valor = $id_persona;
+            $data .= '\'' . htmlentities($valor) . '\' , ';
+
             //elimino la ulima ,
             $valores = substr($valores, 0, -2);
             $valores .= ' )';
@@ -75,19 +58,20 @@ class Persona_model
             $data .= ' )';
 
             $sql = "INSERT INTO $this->table $valores values $data;";
+
             $this->db->query($sql);
-            return (int) $this->db->insert_id ;
+            return (int) $this->db->insert_id;
         } catch (Exception $e) {
             return 0;
         }
 
     }
 
-    public function modificar($input)
+    public function modificar($input,$id_persona)
     {
         try {
-            $datos = ['rfc', 'curp', 'nombre', 'nombre2', 'ape_pat', 'ape_mat', 'fecha_nac', 'sexo', 'civil'];
-            $bddatos = ['RFC', 'CURP', 'Primer_Nombre', 'Segundo_Nombre', 'Apellido_Paterno', 'Apellido_Materno', 'Fecha_Nacimiento', 'Sexo', 'Estado_Civil'];
+            $datos = ['correo', 'tel', 'cel'];
+            $bddatos = ['Correo_Personal', 'Telefono_Fijo', 'Telefono_Celular'];
             $valores = ' ';
             $keys = array_keys($input);
             foreach ($datos as $key => $value) {
@@ -106,7 +90,7 @@ class Persona_model
             //elimino la ultima ,
             $valores = substr($valores, 0, -2);
 
-            $sql = "Update $this->table set $valores where Id_Persona='" . htmlentities($input['id_persona']) . "';";
+            $sql = "Update $this->table set $valores where Id_Persona='" . $id_persona . "';";
             //regresa 1 ó 0
             return (int)$this->db->query($sql);
 
@@ -121,19 +105,6 @@ class Persona_model
         return (int) $this->db->query($sql);
     }
 
-    public function Inactivar($id)
-    {
-        $sql = "Update $this->table set Estado=0 where Id_Persona='" . $id . "';";
-        return (int) $this->db->query($sql);
-    }
-
-    public function Activar($id)
-    {
-        $sql = "Update $this->table set Estado=1 where Id_Persona='" . $id . "';";
-        return (int) $this->db->query($sql);
-    }
-
 }
 
 ?>
-

@@ -6,16 +6,14 @@ class Datos_Controller{
   }
 
   function Mensaje_respuesta(){
-    if($_POST['resultado']==1){
+    if($_POST['resultado']>0){
       require_once("Views/Respuesta_Ok.php");
     }else{
       require_once("Views/Respuesta_Error.php");
     }
   }
 
-
   public function datatable(){
-
 
     require_once("Models/Table_model.php");
     $table= new Table_model();
@@ -65,7 +63,5 @@ class Datos_Controller{
     echo json_encode($json_data);
 
   }
-
-
 
 }

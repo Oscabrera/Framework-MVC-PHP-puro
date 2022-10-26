@@ -20,6 +20,7 @@ function nueva_persona($form) {
 }
 
 function send_datos_nueva_persona($form){
+    $('#guardar').attr('disabled',true);
   var form = $('#'+$form);
 
   if(validarInput($("#curp"))){
@@ -52,7 +53,9 @@ function send_datos_nueva_persona($form){
               });
             }
           });
+            $('#guardar').attr('disabled',false);
         }else{
+            $('#guardar').attr('disabled',false);
               $(".curp-error").remove();
               error = $( "<label >" )
                 .attr( "id", "curp-error" )

@@ -47,28 +47,6 @@ class Table_model {
 
 
     $array_search=explode(' ',$search);
-/*
-    $this->db->group_start();
-    foreach ($this->columns as $key => $value) {
-      $this->db->group_start();
-        $this->db->like($value,$col_search[$key]);
-        $this->db->or_where($value.' is NULL');
-      $this->db->group_end();
-    }
-    $this->db->group_end();
-
-    foreach ($array_search as $keyS => $valueS) {
-      $this->db->group_start();
-      foreach ($this->columns as $key => $value) {
-        if($key==0){
-          $this->db->like($value,$valueS);
-        }else{
-          $this->db->or_like($value,$valueS);
-        }
-      }
-      $this->db->group_end();
-    }
-    */
 
     $sql .= " ORDER BY $col $dir ";
     $sql .= " LIMIT $start,$limit ";
@@ -102,40 +80,6 @@ class Table_model {
 
     return $total;
 
-
-
-
-    /*
-
-    if($this->where!=null){
-      $sql.=" where $this->where";
-    }
-
-    $array_search=explode(' ',$search);
-
-    $this->db->group_start();
-    foreach ($this->columns as $key => $value) {
-        $this->db->like($value,$col_search[$key]);
-    }
-    $this->db->group_end();
-
-    foreach ($array_search as $keyS => $valueS) {
-      $this->db->group_start();
-      foreach ($this->columns as $key => $value) {
-        if($key==0){
-          $this->db->like($value,$valueS);
-        }else{
-          $this->db->or_like($value,$valueS);
-        }
-      }
-      $this->db->group_end();
-    }
-*/
-/*
-    $query = $this->db->get($this->table);
-
-    return $query->num_rows();
-    */
   }
 
 }

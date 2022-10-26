@@ -21,6 +21,7 @@ function nueva_persona($form) {
 
 function send_datos_nueva_persona($form){
   var form = $('#'+$form);
+    $('#guardar').attr('disabled',true);
 
   if(validarInput($("#curp"))){
     var curp = $('#curp').val();
@@ -40,7 +41,7 @@ function send_datos_nueva_persona($form){
             data: form.serialize(),
             dataType: 'json',
             success: function (rest) {
-              if(rest==1){
+              if(rest>0){
                 $('#'+$form).trigger("reset");
               }
               $.ajax({
@@ -54,7 +55,9 @@ function send_datos_nueva_persona($form){
               });
             }
           });
+            $('#guardar').attr('disabled',false);
         }else{
+            $('#guardar').attr('disabled',false);
               $(".curp-error").remove();
               error = $( "<label >" )
                 .attr( "id", "curp-error" )
